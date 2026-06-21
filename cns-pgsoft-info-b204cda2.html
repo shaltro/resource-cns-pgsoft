@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pg模拟器 · 知识轻册</title>
+    <style>
+        /* 极简留白 · 窄正文宽度 · 清晰标题层级 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #fafaf9;
+            color: #1c1917;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            font-size: 1rem;
+            -webkit-font-smoothing: antialiased;
+        }
+        .page-wrap {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 2.4rem 1.8rem 4rem;
+        }
+        /* 顶部导航 —— 轻量文字链 */
+        .top-nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 1.2rem 2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid #e7e5e4;
+            margin-bottom: 2.8rem;
+        }
+        .top-nav .brand {
+            font-weight: 500;
+            font-size: 1.125rem;
+            letter-spacing: -0.01em;
+            color: #292524;
+        }
+        .top-nav a {
+            color: #57534e;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            position: relative;
+        }
+        .top-nav a:hover { color: #0f766e; }
+        .top-nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 100%;
+            height: 1.5px;
+            background: #14b8a6;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.2s ease;
+        }
+        .top-nav a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+        /* hero 区 — 非口号，偏知识型引入 */
+        .hero {
+            margin: 3.2rem 0 3rem;
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 550;
+            letter-spacing: -0.02em;
+            color: #1c1917;
+            line-height: 1.25;
+            margin-bottom: 0.6rem;
+        }
+        .hero .sub {
+            font-size: 1.1rem;
+            color: #57534e;
+            max-width: 620px;
+            border-left: 3px solid #d6d3d1;
+            padding-left: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        .divider-light {
+            width: 40px;
+            height: 2px;
+            background: #d6d3d1;
+            margin: 0.6rem 0 0.8rem;
+        }
+
+        /* 正文段落 */
+        .intro-text p {
+            margin-bottom: 1.5rem;
+            color: #292524;
+        }
+        .intro-text a {
+            color: #0f766e;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-thickness: 1px;
+            text-decoration-color: #a7f3d0;
+            transition: text-decoration-color 0.2s;
+        }
+        .intro-text a:hover {
+            text-decoration-color: #0f766e;
+        }
+
+        /* 三个场景模块 — 卡片式，窄内边距 */
+        .scene-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin: 2.6rem 0 2.8rem;
+        }
+        .scene-card {
+            flex: 1 1 200px;
+            min-width: 160px;
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 1.6rem 1.3rem 1.8rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+            border: 1px solid #f0efed;
+            transition: box-shadow 0.2s;
+        }
+        .scene-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.02);
+        }
+        .scene-card .icon {
+            font-size: 1.6rem;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            display: block;
+            opacity: 0.7;
+        }
+        .scene-card h3 {
+            font-size: 1.05rem;
+            font-weight: 550;
+            margin-bottom: 0.3rem;
+            color: #1c1917;
+        }
+        .scene-card p {
+            font-size: 0.9rem;
+            color: #57534e;
+            line-height: 1.6;
+        }
+
+        /* 常见说明 — 紧凑 FAQ 摘要 */
+        .faq-summary {
+            margin: 2.4rem 0 1.6rem;
+            border-top: 1px solid #e7e5e4;
+            padding-top: 2rem;
+        }
+        .faq-summary h2 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1.2rem;
+            color: #44403c;
+        }
+        .faq-item {
+            margin-bottom: 1.1rem;
+        }
+        .faq-item dt {
+            font-weight: 470;
+            color: #292524;
+            margin-bottom: 0.2rem;
+            font-size: 0.98rem;
+            cursor: default;
+        }
+        .faq-item dd {
+            color: #57534e;
+            font-size: 0.92rem;
+            margin-left: 0;
+            padding-left: 0.6rem;
+            border-left: 2px solid #e7e5e4;
+        }
+
+        /* 提示条 —— 再次访问背景 */
+        .note-return {
+            background: #f5f4f2;
+            border-radius: 12px;
+            padding: 1.2rem 1.6rem;
+            margin: 1.8rem 0 2.4rem;
+            font-size: 0.95rem;
+            color: #44403c;
+            border-left: 4px solid #a7f3d0;
+        }
+
+        /* 响应式 */
+        @media (max-width: 560px) {
+            .page-wrap { padding: 1.6rem 1.2rem 3rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .top-nav { gap: 0.8rem 1.2rem; }
+            .scene-grid { gap: 1.2rem; }
+            .scene-card { flex: 1 1 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+    <!-- 顶部导航：轻量文字链 -->
+    <nav class="top-nav">
+        <span class="brand">· pg 模拟笔记</span>
+        <a href="#">概览</a>
+        <a href="#">场景</a>
+        <a href="#">常见</a>
+        <a href="#">收藏</a>
+    </nav>
+
+    <!-- hero 介绍 —— 从再次访问与关注角度切入 -->
+    <div class="hero">
+        <h1>从一次访问到持续关注</h1>
+        <div class="sub">对 pg模拟器 的理解往往始于尝试，<br>而真正沉淀下来，需要反复回到同一处界面。</div>
+    </div>
+
+    <!-- 核心介绍段落，自然嵌入链接 -->
+    <div class="intro-text">
+        <p>
+            很多人第一次遇到 <a href="https://cns--pgsoft.com">pg模拟器</a> 时，只觉得它是一个快速体验环境。
+            但当你隔了几天再次打开，才会注意到它背后对调试效率、环境一致性的认真处理。
+            这种“第二次访问”所产生的察觉，恰恰是工具价值的真正起点。
+        </p>
+        <p>
+            在知识型使用者看来，模拟器本身是一套轻量但完整的运行容器。无论是梳理数据流、验证前端交互，还是观察游戏逻辑中的状态变化，一个可靠的环境都能让注意力回到问题本身。
+            pg模拟器 的设计恰好偏向这种静默的可靠——不抢眼，但每次打开都保持一致的响应。
+        </p>
+    </div>
+
+    <!-- 三个场景模块 -->
+    <div class="scene-grid">
+        <div class="scene-card">
+            <span class="icon">⚙️</span>
+            <h3>局部验证</h3>
+            <p>在开发过程中快速测试某个片段或功能点，无需搭建完整工程。适合需要反复调整参数、观察即时反馈的场景。</p>
+        </div>
+        <div class="scene-card">
+            <span class="icon">📋</span>
+            <h3>对照回放</h3>
+            <p>记录会话状态后，隔天重新载入同一模拟环境，对比不同配置下的行为差异。适合做渐进式调优。</p>
+        </div>
+        <div class="scene-card">
+            <span class="icon">🔖</span>
+            <h3>收藏·再访</h3>
+            <p>将常用模拟配置固定为入口，形成个人工具集。下一次访问时直接沿用上次的上下文，减少重复设置成本。</p>
+        </div>
+    </div>
+
+    <!-- 提示：再次访问与收藏的角度 -->
+    <div class="note-return">
+        <strong>📌 收藏思路：</strong> 把 pg模拟器 加入浏览器书签，或者记下常用的配置片段。当你时隔多日再次打开，会发现界面依然是上次离开的样子——这种连续性本身就是效率。
+    </div>
+
+    <!-- 常见说明 (FAQ摘要) -->
+    <div class="faq-summary">
+        <h2>常见理解</h2>
+        <dl class="faq-item">
+            <dt>它和完整开发环境有什么区别？</dt>
+            <dd>模拟器更侧重运行层的抽象，适合快速验证逻辑和交互，不需要完整部署。可以看作是“专注核心流程的轻量容器”。</dd>
+        </dl>
+        <dl class="faq-item">
+            <dt>为什么强调“再次访问”？</dt>
+            <dd>很多工具第一次打开只觉得普通，但当你带着具体问题回来，才会注意到它的状态保留和细节一致性。pg模拟器 在这方面做得比较干净。</dd>
+        </dl>
+        <dl class="faq-item">
+            <dt>是否需要主动保存配置？</dt>
+            <dd>大多数情况下环境会自动维持上次会话，但建议对关键参数做截屏或简短记录，养成轻量收藏的习惯。</dd>
+        </dl>
+    </div>
+
+    <!-- 一个非常克制的收尾，仍然在谈关注与再次使用 -->
+    <div style="margin-top: 2rem; font-size: 0.9rem; color: #78716c; border-top: 1px solid #e7e5e4; padding-top: 1.6rem;">
+        <p>如果你正在寻找一个可以反复进入、且每次都能延续上次上下文的环境，<a href="https://cns--pgsoft.com" style="color: #0f766e; text-decoration: underline; text-underline-offset: 3px;">pg模拟器</a> 值得放在书签的固定位置。持续关注的方式，不一定是频繁使用，而是当需要时，它还在那里，状态如常。</p>
+        <p style="margin-top: 0.8rem; color: #a8a29e;">— 知识轻册 · 从一次访问到常态使用</p>
+    </div>
+</div>
+</body>
+</html>
